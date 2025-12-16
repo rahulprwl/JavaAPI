@@ -1,12 +1,16 @@
 package com.rahul.JavaAPI.controllers;
 
 import com.rahul.JavaAPI.handlers.ArrayHandler;
+import com.rahul.JavaAPI.models.arraymodels.ArraysInput;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -14,8 +18,9 @@ import java.util.List;
 class ArrayController {
     @Autowired
     ArrayHandler _arrayHandler;
+
     @PostMapping("mergeArray")
-    public List<Integer> MergeArrays(ArrayList<Integer> array1, ArrayList<Integer> array2){
-        return _arrayHandler.MergeSortedArrays(array1,array2);
-        }
+    public List<Integer> MergeArrays(@RequestBody ArraysInput arraysInput) {
+        return _arrayHandler.MergeSortedArrays(arraysInput.getArray1(), arraysInput.getArray2());
     }
+}
