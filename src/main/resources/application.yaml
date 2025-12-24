@@ -4,4 +4,7 @@ spring:
   mongodb:
     host: localhost
     port: 27017
-    database: arraydb
+    database: geminiDB
+gemini:
+  apiKey: <YOUR_GEMINI_API_KEY>
+  model: gemini-1.5-pro
