@@ -5,6 +5,14 @@ spring:
     host: localhost
     port: 27017
     database: geminiDB
+  kafka:
+    bootstrap-servers: <YOUR_SERVER>:<YOUR_PORT>
+    consumer:
+      group-id: javaapi-group
+      auto-offset-reset: earliest
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 gemini:
   apiKey: <YOUR_GEMINI_API_KEY>
   model: gemini-1.5-pro
