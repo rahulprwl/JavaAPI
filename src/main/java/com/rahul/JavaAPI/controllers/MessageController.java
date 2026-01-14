@@ -15,8 +15,9 @@ public class MessageController {
     @Autowired
     private MessageHandler _messageHandler;
 
-    @GetMapping("send")
+    @GetMapping("sendSimpleMessage")
     public boolean sendMessage(String message) {
         return _messageHandler.sendMessageToTopic(message);
     }
+
 }

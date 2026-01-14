@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,6 +35,12 @@ class ArrayController {
     @GetMapping("byLength")
     public List<ArrayDTO> getArraysByLength(@RequestParam int length) {
         return _arrayHandler.GetArraysByLength(length);
+    }
+
+    @PostMapping("publishArrays")
+    public boolean postMethodName(@RequestBody ArraysInput arraysInput)
+            throws InterruptedException, ExecutionException {
+        return _arrayHandler.PublishMergedArray(arraysInput);
     }
 
 }

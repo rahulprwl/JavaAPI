@@ -3,16 +3,21 @@ package com.rahul.JavaAPI.handlers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rahul.JavaAPI.Adapters.Messenger.KafkaProducer;
 import com.rahul.JavaAPI.models.arraymodels.ArrayDTO;
+import com.rahul.JavaAPI.models.arraymodels.ArraysInput;
 import com.rahul.JavaAPI.repository.ArrayRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class ArrayHandler {
     @Autowired
     private ArrayRepository _arrayRepository;
+    @Autowired
+    private KafkaProducer _kafkaProducer;
 
     public ArrayList<Integer> MergeAndSaveSortedArrays(Integer[] arr1, Integer[] arr2) {
         ArrayList<Integer> merged = new ArrayList<Integer>();
@@ -69,5 +74,10 @@ public class ArrayHandler {
 
     public List<ArrayDTO> GetArraysByLength(int length) {
         return _arrayRepository.findByMergedArrayLength(length);
+    }
+
+    public boolean PublishMergedArray(ArraysInput arraysInput) throws InterruptedException, ExecutionException {
+        _kafkaProducer.sendMessage("merged-arrays-topic", arraysInput);
+        return true;
     }
 }
