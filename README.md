@@ -24,13 +24,37 @@
    spring.mongodb.port=<<PORT>>
    ```
 
-3. **Build the Project**
+3. **Configure Kafka Settings**
+
+   Update `application.yaml` with your Kafka broker details:
+
+   ```yaml
+   spring:
+     kafka:
+       bootstrap-servers: localhost:9092
+       consumer:
+       group-id: javaapi-group
+       auto-offset-reset: earliest
+       producer:
+       key-serializer: org.apache.kafka.common.serialization.StringSerializer
+       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+   ```
+
+4. **Configure Gemini Settings**
+
+   Add your Gemini API credentials to `application.yml`:
+
+   ```properties
+   gemini.api.key=<your-api-key>
+   ```
+
+5. **Build the Project**
 
    ```bash
    mvn clean install
    ```
 
-4. **Run the Application**
+6. **Run the Application**
 
    ```bash
    mvn spring-boot:run
