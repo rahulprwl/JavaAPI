@@ -12,7 +12,12 @@ spring:
       auto-offset-reset: earliest
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring:
+          json:
+            type-mappings: |
+              ArraysInput: com.rahul.JavaAPI.models.ArraysInput
 gemini:
   apiKey: <YOUR_GEMINI_API_KEY>
   model: gemini-1.5-pro
