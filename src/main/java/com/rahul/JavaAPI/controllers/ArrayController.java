@@ -38,8 +38,7 @@ class ArrayController {
     }
 
     @PostMapping("publishArrays")
-    public boolean postMethodName(@RequestBody ArraysInput arraysInput)
-            throws InterruptedException, ExecutionException {
+    public boolean postMethodName(@RequestBody ArraysInput arraysInput) {
         return _arrayHandler.PublishMergedArray(arraysInput);
     }
 

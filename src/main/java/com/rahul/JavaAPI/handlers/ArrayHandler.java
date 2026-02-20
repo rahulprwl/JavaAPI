@@ -1,5 +1,6 @@
 package com.rahul.JavaAPI.handlers;
 
+import org.springaicommunity.mcp.annotation.McpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,6 @@ import com.rahul.JavaAPI.repository.ArrayRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class ArrayHandler {
@@ -68,16 +68,20 @@ public class ArrayHandler {
         return merged;
     }
 
+    @McpTool(name = "GetAllMergedArrays", description = "Get all merged arrays")
     public List<ArrayDTO> GetAllMergedArrays() {
         return _arrayRepository.findAll();
     }
 
+    @McpTool(name = "GetArraysByLength", description = "Get arrays by length")
     public List<ArrayDTO> GetArraysByLength(int length) {
         return _arrayRepository.findByMergedArrayLength(length);
     }
 
-    public boolean PublishMergedArray(ArraysInput arraysInput) throws InterruptedException, ExecutionException {
-        _kafkaProducer.sendMessage("merged-arrays-topic", arraysInput);
+    @McpTool(name = "PublishMergedArray", description = "Publish a merged sorted array from 2 given sorted array")
+    public boolean PublishMergedArray(ArraysInput arraysInput) {
+        ArrayList<Integer> merged = MergeAndSaveSortedArrays(arraysInput.getArray1(), arraysInput.getArray2());
+        _kafkaProducer.sendMessage("merged-arrays-topic", merged.toString());
         return true;
     }
 }

@@ -18,6 +18,25 @@ spring:
           json:
             type-mappings: |
               ArraysInput: com.rahul.JavaAPI.models.ArraysInput
+  ai:
+    mcp:
+      server:
+        type: SYNC
+        name: JavaMcpServer
+        version: 1.0.0
+        protocol: streamable
+        capabilities:
+          tool: true
 gemini:
   apiKey: <YOUR_GEMINI_API_KEY>
   model: gemini-1.5-pro
+  # Optional: Set the logging level for MCP interactions to TRACE for detailed debugging
+# logging:
+#   level:
+#     org:
+#       springframework:
+#         ai:
+#           mcp: TRACE
+#           server: TRACE
+#     io:
+#       modelcontextprotocol: TRACE
